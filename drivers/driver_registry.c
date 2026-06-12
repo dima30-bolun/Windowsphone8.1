@@ -13,6 +13,11 @@ const BolunDriver *bolun_usb_driver(void);
 const BolunDriver *bolun_sensors_driver(void);
 const BolunDriver *bolun_cellular_driver(void);
 const BolunDriver *bolun_power_management_driver(void);
+const BolunDriver *bolun_storage_driver(void);
+const BolunDriver *bolun_battery_driver(void);
+const BolunDriver *bolun_charging_driver(void);
+const BolunDriver *bolun_vibration_driver(void);
+const BolunDriver *bolun_lte_driver(void);
 
 
 typedef const BolunDriver *(*DriverFactory)(void);
@@ -29,7 +34,12 @@ static DriverFactory factories[] = {
     bolun_usb_driver,
     bolun_sensors_driver,
     bolun_cellular_driver,
-    bolun_power_management_driver
+    bolun_power_management_driver,
+    bolun_storage_driver,
+    bolun_battery_driver,
+    bolun_charging_driver,
+    bolun_vibration_driver,
+    bolun_lte_driver
 };
 
 size_t bolun_driver_count(void) { return sizeof(factories) / sizeof(factories[0]); }

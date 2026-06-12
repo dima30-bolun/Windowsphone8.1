@@ -10,6 +10,7 @@ BolunStatus bolun_power_service_start(void); BolunStatus bolun_power_service_han
 BolunStatus bolun_backup_service_start(void); BolunStatus bolun_backup_service_handle(const char*, char*, size_t); BolunStatus bolun_backup_service_stop(void);
 BolunStatus bolun_cloud_sync_service_start(void); BolunStatus bolun_cloud_sync_service_handle(const char*, char*, size_t); BolunStatus bolun_cloud_sync_service_stop(void);
 BolunStatus bolun_licensing_service_start(void); BolunStatus bolun_licensing_service_handle(const char*, char*, size_t); BolunStatus bolun_licensing_service_stop(void);
+BolunStatus bolun_assistant_service_start(void); BolunStatus bolun_assistant_service_handle(const char*, char*, size_t); BolunStatus bolun_assistant_service_stop(void);
 
 static BolunService services[] = {
     {"notification", bolun_notification_service_start, bolun_notification_service_handle, bolun_notification_service_stop},
@@ -20,7 +21,8 @@ static BolunService services[] = {
     {"power", bolun_power_service_start, bolun_power_service_handle, bolun_power_service_stop},
     {"backup", bolun_backup_service_start, bolun_backup_service_handle, bolun_backup_service_stop},
     {"cloud_sync", bolun_cloud_sync_service_start, bolun_cloud_sync_service_handle, bolun_cloud_sync_service_stop},
-    {"licensing", bolun_licensing_service_start, bolun_licensing_service_handle, bolun_licensing_service_stop}
+    {"licensing", bolun_licensing_service_start, bolun_licensing_service_handle, bolun_licensing_service_stop},
+    {"assistant", bolun_assistant_service_start, bolun_assistant_service_handle, bolun_assistant_service_stop}
 };
 
 size_t bolun_service_count(void) { return sizeof(services) / sizeof(services[0]); }

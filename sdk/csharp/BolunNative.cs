@@ -7,5 +7,8 @@ namespace Bolun.Phone.OS
     {
         [DllImport("bolun", CallingConvention = CallingConvention.Cdecl)]
         public static extern UIntPtr bolun_app_count();
+
+        [DllImport("bolun", CallingConvention = CallingConvention.Cdecl)]
+        public static extern int bolun_service_start_all();
     }
 }

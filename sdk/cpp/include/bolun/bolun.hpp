@@ -4,6 +4,7 @@
 #include "bolun/status.h"
 #include "bolun/apps.h"
 #include "bolun/services.h"
+#include "bolun/assistant.h"
 
 namespace bolun {
 inline const char *status_string(BolunStatus status) { return bolun_status_string(status); }

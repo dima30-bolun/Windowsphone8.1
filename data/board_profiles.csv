@@ -1,3 +1,24 @@
 model,arch,soc,ram_mb,width,height,features
-Lumia 520,ARMv7,Snapdragon S4,512,480,800,touch
-Lumia 950 XL,ARM64,Snapdragon 810,3072,1440,2560,touch camera lte nfc glance
+Lumia 520,ARMv7,Snapdragon S4,512,480,800,touch camera removable_storage
+Lumia 525,ARMv7,Snapdragon S4,1024,480,800,touch camera removable_storage
+Lumia 530,ARMv7,Snapdragon 200,512,480,854,touch camera removable_storage
+Lumia 535,ARMv7,Snapdragon 200,1024,540,960,touch camera front_camera removable_storage
+Lumia 620,ARMv7,Snapdragon S4,512,480,800,touch camera nfc removable_storage
+Lumia 625,ARMv7,Snapdragon S4,512,480,800,touch camera lte removable_storage
+Lumia 630,ARMv7,Snapdragon 400,512,480,854,touch camera removable_storage
+Lumia 635,ARMv7,Snapdragon 400,512,480,854,touch camera lte removable_storage
+Lumia 640,ARMv7,Snapdragon 400,1024,720,1280,touch camera front_camera lte nfc removable_storage
+Lumia 640 XL,ARMv7,Snapdragon 400,1024,720,1280,touch camera front_camera lte nfc removable_storage
+Lumia 720,ARMv7,Snapdragon S4,512,480,800,touch camera front_camera nfc removable_storage
+Lumia 730,ARMv7,Snapdragon 400,1024,720,1280,touch camera front_camera removable_storage
+Lumia 735,ARMv7,Snapdragon 400,1024,720,1280,touch camera front_camera lte nfc removable_storage
+Lumia 820,ARMv7,Snapdragon S4,1024,480,800,touch camera lte nfc removable_storage wireless_charging
+Lumia 830,ARMv7,Snapdragon 400,1024,720,1280,touch camera front_camera lte nfc removable_storage high_res_camera
+Lumia 920,ARMv7,Snapdragon S4,1024,768,1280,touch camera lte nfc wireless_charging high_res_camera
+Lumia 925,ARMv7,Snapdragon S4,1024,768,1280,touch camera lte nfc high_res_camera
+Lumia 930,ARMv7,Snapdragon 800,2048,1080,1920,touch camera front_camera lte nfc wireless_charging high_res_camera
+Lumia 1020,ARMv7,Snapdragon S4,2048,768,1280,touch camera lte nfc high_res_camera
+Lumia 1320,ARMv7,Snapdragon S4,1024,720,1280,touch camera lte removable_storage
+Lumia 1520,ARMv7,Snapdragon 800,2048,1080,1920,touch camera front_camera lte nfc removable_storage high_res_camera
+Lumia 950,ARM64,Snapdragon 808,3072,1440,2560,touch camera front_camera lte nfc glance removable_storage high_res_camera
+Lumia 950 XL,ARM64,Snapdragon 810,3072,1440,2560,touch camera front_camera lte nfc glance removable_storage high_res_camera

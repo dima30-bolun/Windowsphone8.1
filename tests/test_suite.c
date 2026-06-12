@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "bolun/apps.h"
+#include "bolun/assistant.h"
 #include "bolun/driver.h"
 #include "bolun/graphics.h"
 #include "bolun/hal.h"
@@ -13,11 +14,24 @@ static int failures;
 #define CHECK(expr) do { if (!(expr)) { printf("FAIL %s:%d: %s\n", __FILE__, __LINE__, #expr); failures++; } } while (0)
 
 static void test_hal(void) {
-    CHECK(bolun_hal_profile_count() >= 8);
+    CHECK(bolun_hal_profile_count() == 23);
     const BolunBoardProfile *p = bolun_hal_find_profile("Lumia 950 XL");
     CHECK(p != 0);
     CHECK(p && p->soc == BOLUN_SOC_SNAPDRAGON_810);
     CHECK(p && bolun_hal_validate_profile(p) == BOLUN_OK);
+    CHECK(bolun_hal_find_profile("Lumia 1020") != 0);
+    BolunHalControllerState ctl;
+    CHECK(bolun_hal_controller_init(&ctl, p) == BOLUN_OK);
+    CHECK(bolun_hal_set_cpu_frequency(&ctl, 1400) == BOLUN_OK);
+    CHECK(ctl.cpu_frequency_mhz == 1400);
+    CHECK(bolun_hal_gpio_write(&ctl, 7, 1) == BOLUN_OK);
+    uint8_t pin = 0;
+    CHECK(bolun_hal_gpio_read(&ctl, 7, &pin) == BOLUN_OK);
+    CHECK(pin == 1);
+    uint8_t tx[2] = {0x10, 0x20};
+    uint8_t rx[2] = {0, 0};
+    CHECK(bolun_hal_spi_transfer(&ctl, tx, rx, 2) == BOLUN_OK);
+    CHECK(rx[0] == (uint8_t)0xef);
 }
 
 static void test_kernel(void) {
@@ -48,12 +62,17 @@ static void test_kernel(void) {
 
 static void test_drivers_services(void) {
     const BolunBoardProfile *p = bolun_hal_find_profile("Lumia 950");
-    CHECK(bolun_driver_count() == 13);
+    CHECK(bolun_driver_count() == 18);
     CHECK(bolun_driver_start_all(p) == BOLUN_OK);
     CHECK(bolun_service_start_all() == BOLUN_OK);
     char response[128];
     CHECK(bolun_service_request("notification", "ping", response, sizeof(response)) == BOLUN_OK);
     CHECK(strstr(response, "notification:handled:ping") != 0);
+    CHECK(bolun_service_request("storage", "put notes hello", response, sizeof(response)) == BOLUN_OK);
+    CHECK(bolun_service_request("storage", "get notes", response, sizeof(response)) == BOLUN_OK);
+    CHECK(strstr(response, "notes=hello") != 0);
+    CHECK(bolun_service_request("assistant", "open calculator", response, sizeof(response)) == BOLUN_OK);
+    CHECK(strstr(response, "assistant:open_app:calculator") != 0);
 }
 
 static void test_graphics_shell_apps(void) {
@@ -74,8 +93,12 @@ static void test_license(void) {
     BolunLicenseState state;
     CHECK(bolun_license_init(&state, 10, 10) == BOLUN_OK);
     CHECK(bolun_license_can_use_ai(&state, "assistant") == 1);
+    BolunAssistantResult result;
+    CHECK(bolun_assistant_execute(&state, "call Alice", &result) == BOLUN_OK);
+    CHECK(result.requires_ai_license == 0);
     CHECK(bolun_license_set_day(&state, 41) == BOLUN_OK);
-    CHECK(bolun_license_record_ai_usage(&state, "assistant") == BOLUN_OK);
+    CHECK(bolun_assistant_execute(&state, "summarize document", &result) == BOLUN_OK);
+    CHECK(result.requires_ai_license == 1);
     CHECK(bolun_license_record_ai_usage(&state, "assistant") == BOLUN_OK);
     CHECK(bolun_license_record_ai_usage(&state, "assistant") == BOLUN_OK);
     CHECK(bolun_license_record_ai_usage(&state, "assistant") == BOLUN_ERROR_QUOTA);
