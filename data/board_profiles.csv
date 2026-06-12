@@ -1,0 +1,3 @@
+model,arch,soc,ram_mb,width,height,features
+Lumia 520,ARMv7,Snapdragon S4,512,480,800,touch
+Lumia 950 XL,ARM64,Snapdragon 810,3072,1440,2560,touch camera lte nfc glance
